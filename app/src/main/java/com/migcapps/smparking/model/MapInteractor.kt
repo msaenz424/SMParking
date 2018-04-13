@@ -2,7 +2,7 @@ package com.migcapps.smparking.model
 
 import io.reactivex.Observable
 
-interface MapsInteractor {
+interface MapInteractor {
 
     fun requestLots(): Observable<Lot>
 

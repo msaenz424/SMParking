@@ -18,7 +18,7 @@ import com.migcapps.smparking.presenter.MapPresenterImpl
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MapsActivity : AppCompatActivity(), MapView, OnMapReadyCallback {
+class MapActivity : AppCompatActivity(), MapView, OnMapReadyCallback {
 
     private lateinit var mMapPresenter: MapPresenterImpl
 

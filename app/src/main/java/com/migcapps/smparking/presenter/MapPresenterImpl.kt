@@ -1,7 +1,7 @@
 package com.migcapps.smparking.presenter
 
 import com.google.android.gms.maps.GoogleMap
-import com.migcapps.smparking.model.MapsInteractorImpl
+import com.migcapps.smparking.model.MapInteractorImpl
 import com.migcapps.smparking.view.MapView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -9,10 +9,10 @@ import io.reactivex.schedulers.Schedulers
 class MapPresenterImpl constructor(mapView: MapView) : MapPresenter{
 
     val mMapView = mapView
-    val mMapInteractor = MapsInteractorImpl()
+    val mMapInteractor = MapInteractorImpl()
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val mapsInteractor = MapsInteractorImpl()
+        val mapsInteractor = MapInteractorImpl()
         mapsInteractor.requestLots()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
