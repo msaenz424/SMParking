@@ -11,42 +11,36 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.migcapps.smparking.R
 import com.migcapps.smparking.model.Lot
-import com.migcapps.smparking.model.MapsInteractorImpl
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import com.google.maps.android.ui.IconGenerator
 import android.widget.TextView
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.migcapps.smparking.presenter.MapPresenterImpl
 import java.util.*
+import kotlin.collections.ArrayList
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), MapView, OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
-    val mLotsArrayList = ArrayList<Lot>()
+    private lateinit var mMapPresenter: MapPresenterImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
-        val mapsInteractor = MapsInteractorImpl()
-        mapsInteractor.requestLots()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    lot -> mLotsArrayList.add(lot)
-                },{
-                    e -> e.printStackTrace()
-                },{
-                    // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-                    val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-                    mapFragment.getMapAsync(this)
-                })
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+
+        mMapPresenter = MapPresenterImpl(this)
+    }
+
+    override fun displayParkingStructures(lotsArrayList: ArrayList<Lot>, googleMap: GoogleMap) {
+        for (lot in lotsArrayList){
+            googleMap.addMarker(generateMarker(lot))
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        for (lot in mLotsArrayList){
-            googleMap.addMarker(generateMarker(lot))
-        }
+        mMapPresenter.onMapReady(googleMap)
     }
 
     /**

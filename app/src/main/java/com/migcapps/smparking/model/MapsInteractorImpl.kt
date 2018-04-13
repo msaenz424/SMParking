@@ -4,10 +4,12 @@ import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.collections.ArrayList
 
 class MapsInteractorImpl : MapsInteractor {
 
     private val mSMParkingClient: SMParkingClient
+    private val mLotsArrayList = ArrayList<Lot>()
 
     init {
         val retrofit = Retrofit.Builder()
@@ -25,6 +27,14 @@ class MapsInteractorImpl : MapsInteractor {
                 .map { lot -> Lot(lot.id, lot.latitude, lot.longitude, lot.availableSpaces) }
 
         return observable
+    }
+
+    override fun addLot(lot: Lot) {
+        mLotsArrayList.add(lot)
+    }
+
+    override fun getLotsList(): ArrayList<Lot> {
+        return mLotsArrayList
     }
 
 }
