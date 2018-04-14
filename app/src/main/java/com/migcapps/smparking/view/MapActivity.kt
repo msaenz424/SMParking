@@ -13,6 +13,7 @@ import com.migcapps.smparking.R
 import com.migcapps.smparking.model.Lot
 import com.google.maps.android.ui.IconGenerator
 import android.widget.TextView
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.migcapps.smparking.presenter.MapPresenterImpl
 import java.util.*
@@ -20,6 +21,10 @@ import kotlin.collections.ArrayList
 
 class MapActivity : AppCompatActivity(), MapView, OnMapReadyCallback {
 
+    private val ZOOM_LEVEL = 14
+    private val ZOOM_DURATION = 1
+    private val SM_DEFAULT_LATITUDE = 34.014539
+    private val SM_DEFAULT_LONGITUDE = -118.498640
     private lateinit var mMapPresenter: MapPresenterImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +42,8 @@ class MapActivity : AppCompatActivity(), MapView, OnMapReadyCallback {
         for (lot in lotsArrayList){
             googleMap.addMarker(generateMarker(lot))
         }
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(SM_DEFAULT_LATITUDE, SM_DEFAULT_LONGITUDE)))
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM_LEVEL.toFloat()), ZOOM_DURATION, null)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
