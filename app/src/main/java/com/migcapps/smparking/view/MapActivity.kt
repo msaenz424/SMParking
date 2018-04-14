@@ -40,7 +40,9 @@ class MapActivity : AppCompatActivity(), MapView, OnMapReadyCallback {
 
     override fun displayParkingStructures(lotsArrayList: ArrayList<Lot>, googleMap: GoogleMap) {
         for (lot in lotsArrayList){
-            googleMap.addMarker(generateMarker(lot))
+            val marker = googleMap.addMarker(generateMarker(lot))
+            marker.title = lot.name
+            marker.snippet = lot.streetAddress
         }
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(SM_DEFAULT_LATITUDE, SM_DEFAULT_LONGITUDE)))
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM_LEVEL.toFloat()), ZOOM_DURATION, null)

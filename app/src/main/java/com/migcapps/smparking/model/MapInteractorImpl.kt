@@ -24,7 +24,7 @@ class MapInteractorImpl : MapInteractor {
         val observable: Observable<Lot>
         observable = mSMParkingClient.getLotResult()
                 .flatMap { lotResult -> Observable.fromIterable(lotResult) }
-                .map { lot -> Lot(lot.id, lot.latitude, lot.longitude, lot.availableSpaces) }
+                .map { lot -> Lot(lot.id, lot.latitude, lot.longitude, lot.availableSpaces, lot.name, lot.streetAddress) }
 
         return observable
     }
