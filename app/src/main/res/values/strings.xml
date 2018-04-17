@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">SMParking</string>
-    <string name="title_activity_maps">Santa Monica Parking Map</string>
+    <string name="app_name">SM Parking</string>
+    <string name="title_activity_maps">Parking Structures</string>
 </resources>
