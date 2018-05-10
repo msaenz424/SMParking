@@ -13,6 +13,9 @@ import com.migcapps.smparking.R
 import com.migcapps.smparking.model.Lot
 import com.google.maps.android.ui.IconGenerator
 import android.widget.TextView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.migcapps.smparking.presenter.MapPresenterImpl
@@ -30,6 +33,7 @@ class MapActivity : AppCompatActivity(), MapView, OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
+        loadBannerAd()
         title = resources.getString(R.string.title_activity_maps)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
@@ -95,5 +99,15 @@ class MapActivity : AppCompatActivity(), MapView, OnMapReadyCallback {
         val min = IconGenerator.STYLE_BLUE
         val random = Random()
         return random.nextInt((max - min) + 1) + min
+    }
+
+    /**
+     * Initializes and loads banner ad
+     */
+    private fun loadBannerAd(){
+        MobileAds.initialize(this, resources.getString(R.string.map_banner_ad_unit_id))
+        val adView: AdView = findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 }

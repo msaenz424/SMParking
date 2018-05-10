@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-//def keystorePropertiesFile = file('E:/_AndKeystores/gradleProperties/SMParking/keystore.properties')
+def keystorePropertiesFile = file('E:/_AndKeystores/gradleProperties/SMParking/keystore.properties')
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
@@ -47,4 +47,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'com.google.maps.android:android-maps-utils:0.5'
+    implementation 'com.google.firebase:firebase-ads:15.0.1'
 }
