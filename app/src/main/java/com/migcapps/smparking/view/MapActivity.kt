@@ -42,6 +42,11 @@ class MapActivity : AppCompatActivity(), MapView, OnMapReadyCallback {
         mMapPresenter = MapPresenterImpl(this)
     }
 
+    override fun onStop() {
+        super.onStop()
+        finish()
+    }
+
     override fun displayParkingStructures(lotsArrayList: ArrayList<Lot>, googleMap: GoogleMap) {
         for (lot in lotsArrayList){
             val marker = googleMap.addMarker(generateMarker(lot))

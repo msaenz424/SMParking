@@ -6,7 +6,7 @@ import com.migcapps.smparking.view.MapView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MapPresenterImpl constructor(mapView: MapView) : MapPresenter{
+class MapPresenterImpl constructor(mapView: MapView) : MapPresenter {
 
     val mMapView = mapView
     val mMapInteractor = MapInteractorImpl()
@@ -16,11 +16,11 @@ class MapPresenterImpl constructor(mapView: MapView) : MapPresenter{
         mapsInteractor.requestLots()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    lot -> mMapInteractor.addLot(lot)
-                },{
-                    e -> e.printStackTrace()
-                },{
+                .subscribe({ lot ->
+                    mMapInteractor.addLot(lot)
+                }, { e ->
+                    e.printStackTrace()
+                }, {
                     mMapView.displayParkingStructures(mMapInteractor.getLotsList(), googleMap)
                 })
     }
